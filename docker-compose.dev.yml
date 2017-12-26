@@ -1,0 +1,28 @@
+version: "3"
+services:
+  iRango:
+    build:
+      dockerfile: ./Dockerfile
+      context: .
+    image: tiagorosadacosta/irango
+    command: node_modules/.bin/nodemon --exec npm start
+    volumes:
+      - .:/home/app/iRango
+      - /home/app/iRango/node_modules
+    ports:
+      - 3000:3000  
+    container_name: irango
+    networks:
+      - dev
+    depends_on:
+      - mongodb
+  mongodb:
+    image: mongo
+    ports:
+      - 27017:27017 
+    container_name: mongo 
+    networks:
+      - dev
+networks:
+  dev:
+    driver: bridge  
