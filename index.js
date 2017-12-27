@@ -1,5 +1,6 @@
 import express from "express";
 import bodyParser from "body-parser";
+import cors from "cors";
 import "./config/database";
 import restauranteDAO from "./collections/Restaurante";
 
@@ -12,6 +13,11 @@ app.set("view engine", "ejs");
  * @description Middleware responsable in parse content to json.
  */
 app.use(bodyParser.urlencoded({ extended: true}));
+
+/**
+ * @description Defined cors in application.
+ */
+app.use(cors());
 
 /**
  * @description Routes application.
@@ -50,8 +56,13 @@ app.get("/restaurantes/distancia", async (request, response) => {
                     $maxDistance: 6378.1
                 }
             } 
-        })
-        response.json(restaurantes);
+        });
+        const latitudeLongitudeRestaurantes = restaurantes.map(restaurante => ({
+            lat: restaurante.loc.coordinates[1],
+            lng: restaurante.loc.coordinates[0]
+        }));
+        response.json(latitudeLongitudeRestaurantes);
+        // response.render("distance_between_map", { restaurantes, lat: lat, lng: lng });
     } else {
         response.render("distance_map");
     }
