@@ -24,10 +24,37 @@ app.get("/restaurantes", async (request, response) => {
 app.get("/restaurantes/novo", (request, response) => response.render("novo"));
 app.post("/restaurantes/novo", async (request, response) => {
     const newRestaurante = {
-        name: request.body.name
+        name: request.body.name,
+        loc: {
+            type: "Point",
+            coordinates: [
+                parseFloat(request.body.lng), parseFloat(request.body.lat)
+            ]
+        }
     };
     await restauranteDAO.create(newRestaurante);
     response.redirect("/restaurantes");
+});
+
+app.get("/restaurantes/distancia", async (request, response) => {
+    const { lat, lng } = request.query;
+
+    if (lat && lng) {
+        const restaurantes = await restauranteDAO.find({
+            loc: {
+                $near: {
+                    $geometry: {
+                        type: "Point",
+                        coordinates: [lng, lat]
+                    },
+                    $maxDistance: 6378.1
+                }
+            } 
+        })
+        response.json(restaurantes);
+    } else {
+        response.render("distance_map");
+    }
 });
 
 app.get("/restaurantes/:id/deletar", async (request, response) => {
