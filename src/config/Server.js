@@ -1,8 +1,8 @@
 import express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
-import restauranteRouter from "./../routes/Restaurante";
-import "./database";
+import restauranteRouter from "../routes/Restaurante";
+import "./Database";
 
 const app = express();
 

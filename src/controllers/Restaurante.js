@@ -1,4 +1,4 @@
-import RestauranteService from "./../services/Restaurante";
+import RestauranteService from "../services/Restaurante";
 import Response from "../modules/Response";
 
 export default class Restaurante {
@@ -15,7 +15,7 @@ export default class Restaurante {
      */
     async findAll(request, response) {
         const restaurantes = await this.restauranteService.findAll();
-        response.status(200).json(restaurantes);
+        response.status(Response.OK()).json(restaurantes);
     }
 
     /**
@@ -27,7 +27,7 @@ export default class Restaurante {
     async findAllUpcomming(request, response) {
         const { lat, lng } = request.query;
         const restaurantes = await this.restauranteService.findAllUpcomming(lat, lng);
-        response.status(200).json(restaurantes);
+        response.status(Response.OK()).json(restaurantes);
     }
 
     /**
@@ -39,9 +39,10 @@ export default class Restaurante {
     async create(request, response) {
         try {
             await this.restauranteService.create(request.body);
-            response.sendStatus(201);
+            response.sendStatus(Response.CREATED());
         } catch(e) {
-            response.status(400).json({ messageErro: Response.getErrorsValidation(e.errors)});
+            response.status(Response.BAD_REQUEST())
+                    .json({ messageErro: Response.getErrorsValidation(e.errors)});
         }
     }
 
@@ -51,19 +52,18 @@ export default class Restaurante {
      * @param response
      * @returns {Promise.<void>}
      */
-    async remove(request, response) {
+    remove(request, response) {
         try {
             const id = request.params.id;
-            // const isExisteRestaurante = await this.restauranteService.findById(id);
-            // if (isExisteRestaurante) {
-            //     response.sendStatus(404);
-            // } else {
-                await this.restauranteService.remove(id);
-                response.sendStatus(204);
-            // }
+            this.restauranteService.findById(id)
+                .then(async (resultado) => {
+                    await this.restauranteService.remove(id);
+                    response.sendStatus(Response.NO_CONTENT());
+                })
+                .catch(error => response.sendStatus(Response.NOT_FOUND()));
         } catch (e) {
-            response.status(400).json({ messageErro: Response.getErrorsValidation(e.errors)});
+            response.status(Response.INTERNAL_SERVER_ERROR())
+                    .json({ messageErro: Response.getErrorsValidation(e.errors)});
         }
     }
-
 }

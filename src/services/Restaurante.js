@@ -1,9 +1,9 @@
-import restauranteDao from "./../collections/Restaurante";
+import RestauranteDao from "../dao/Restaurante";
 
 export default class Restaurante {
 
     constructor() {
-        this.restauranteDao = restauranteDao;
+        this.restauranteDao = new RestauranteDao();
     }
 
     /**
@@ -11,8 +11,8 @@ export default class Restaurante {
      * @param id
      * @returns {Promise.<*>}
      */
-    async findById(id) {
-        return await this.restauranteDao.findById(id);
+    findById(id) {
+        return this.restauranteDao.findById(id);
     }
 
     /**
@@ -22,7 +22,7 @@ export default class Restaurante {
      * @returns {Promise.<void>}
      */
     async findAll() {
-        return await this.restauranteDao.find({});
+        return await this.restauranteDao.findAll();
     }
 
     /**
@@ -32,17 +32,7 @@ export default class Restaurante {
      * @returns {Promise.<void>}
      */
     async findAllUpcomming(lat, lng) {
-        const restaurantes = await this.restauranteDao.find({
-            loc: {
-                $near: {
-                    $geometry: {
-                        type: "Point",
-                        coordinates: [lng, lat]
-                    },
-                    $maxDistance: 6378.1
-                }
-            }
-        });
+        const restaurantes = await this.restauranteDao.findAllUpcoming(lat, lng);
 
 
         return restaurantes.map(restaurante => (
