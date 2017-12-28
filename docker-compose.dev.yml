@@ -12,6 +12,8 @@ services:
     ports:
       - 3000:3000  
     container_name: irango
+    environment:
+      - ambiente:dev
     networks:
       - dev
     depends_on:
