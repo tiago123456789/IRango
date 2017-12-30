@@ -1,5 +1,5 @@
 import RestauranteService from "../services/Restaurante";
-import Response from "../modules/Response";
+import Response from "../lib/Response";
 
 export default class Restaurante {
 

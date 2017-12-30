@@ -25,7 +25,7 @@ export default class Restaurante {
                         type: "Point",
                         coordinates: [lng, lat]
                     },
-                    $maxDistance: 6378.1
+                    $maxDistance: 10378.1
                 }
             }
         });

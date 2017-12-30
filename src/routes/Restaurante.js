@@ -7,7 +7,7 @@ export default () => {
 
     router.get("/", (request, response) => restauranteController.findAll(request, response));
     router.post("/", (request, response) => restauranteController.create(request, response));
-    router.get("/distancia", (request, response) => restauranteController.findAllUpcomming(request, response));
+    router.get("/distancias", (request, response) => restauranteController.findAllUpcomming(request, response));
     router.delete("/:id", (request, response) => restauranteController.remove(request, response));
     return router;
 }
