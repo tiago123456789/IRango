@@ -38,7 +38,7 @@ export default class Restaurante {
      */
     findById(id) {
         return new Promise((resolve, reject) => {
-            this.restauranteDao
+            this.dao
                 .findOne({ _id: id })
                 .then(result => resolve(result))
                 .catch(error => reject(error));
@@ -51,7 +51,7 @@ export default class Restaurante {
      * @returns {Promise.<void>}
      */
     async remove(id) {
-        await this.restauranteDao.remove(id);
+        await this.dao.remove(id);
     }
 
     /**

@@ -60,7 +60,10 @@ export default class Restaurante {
                     await this.restauranteService.remove(id);
                     response.sendStatus(Response.NO_CONTENT());
                 })
-                .catch(error => response.sendStatus(Response.NOT_FOUND()));
+                .catch(error => {
+                    console.log(error);
+                    response.sendStatus(Response.NOT_FOUND())
+                });
         } catch (e) {
             response.status(Response.INTERNAL_SERVER_ERROR())
                     .json({ messageErro: Response.getErrorsValidation(e.errors)});
