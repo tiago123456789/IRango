@@ -1,33 +1,5 @@
 
-Skip to content
-This repository
-
-    Pull requests
-    Issues
-    Marketplace
-    Explore
-
-    @tiago123456789
-
-0
-0
-
-    0
-
-tiago123456789/IRango
-Code
-Issues 0
-Pull requests 0
-Projects 0
-Wiki
-Insights
-Settings
-IRango/.gitignore
-a62402a just now
-@tiago123456789 tiago123456789 Initial commit
-60 lines (42 sloc) 884 Bytes
 # Logs
-logs
 *.log
 npm-debug.log*
 yarn-debug.log*
@@ -84,3 +56,7 @@ typings/
 
 # dotenv environment variables file
 .env
+
+#ide
+
+.idea
