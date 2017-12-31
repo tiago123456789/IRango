@@ -4,7 +4,7 @@ const configuracoes = {
         PORT: 3000,
     },
     prd: {
-        URL_CONNECT_DB: "mongodb://admin:tiago@ds133597.mlab.com:33597/irango",
+        URL_CONNECT_DB: "mongodb://<user>:<password>@ds133597.mlab.com:33597/irango",
         PORT: 80,
     }
 };
