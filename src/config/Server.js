@@ -1,5 +1,6 @@
 import express from "express";
 import bodyParser from "body-parser";
+import configuracoes from "./Configuration";
 import cors from "cors";
 import restauranteRouter from "../routes/Restaurante";
 import "./Database";
@@ -20,5 +21,10 @@ app.use(cors());
  * @description Routes application.
  */
 app.use("/restaurantes", restauranteRouter());
+
+/**
+ * @description Definindo atributo de configurações in app.
+ */
+app.configuracoes = configuracoes;
 
 export default app;

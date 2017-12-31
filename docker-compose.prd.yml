@@ -5,26 +5,17 @@ services:
       dockerfile: ./Dockerfile
       context: .
     image: tiagorosadacosta/irango
+    environment:
+      NODE_ENV: prd
     command: node_modules/.bin/nodemon --exec npm start
     volumes:
       - .:/home/app/iRango
       - /home/app/iRango/node_modules
     ports:
-      - 3000:3000  
-    container_name: irango
-    environment:
-      NODE_ENV: dev
+      - 8080:80
+    container_name: irango_prd
     networks:
-      - dev
-    depends_on:
-      - mongodb
-  mongodb:
-    image: mongo
-    ports:
-      - 27017:27017 
-    container_name: mongo 
-    networks:
-      - dev
+      - prd
 networks:
-  dev:
+  prd:
     driver: bridge  
